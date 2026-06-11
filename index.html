@@ -504,7 +504,7 @@ input,textarea,select{ font-family:inherit; font-size:15px; color:var(--text); }
 
 /* ---- CARD CORE (shared structure; templates override colors/positions) ---- */
 .card{
-  width:1080px; height:1080px; position:relative; overflow:hidden;
+  width:1080px; min-height:1080px; height:auto; position:relative; overflow:hidden;
   font-family:'Inter',sans-serif; color:#fff;
   display:flex; flex-direction:column;
   --c-bg:#FFFFFF; --c-accent:var(--gitex-red); --c-text:#111827; --c-text-2:#4B5563;
@@ -1776,21 +1776,23 @@ function renderCard(){
   });
 
   // Links
+  const emailRow = $('#cardEmailRow'), phoneRow = $('#cardPhoneRow');
   const liRow = $('#cardLinkedinRow'), wsRow = $('#cardWebsiteRow');
-  const emRow = $('#cardEmailRow'), phRow = $('#cardPhoneRow');
-
-  if(f.email){ emRow.classList.remove('opt-hide'); $('#cardEmail').textContent = f.email; }
-  else emRow.classList.add('opt-hide');
   
-  if(f.phone){ phRow.classList.remove('opt-hide'); $('#cardPhone').textContent = f.phone; }
-  else phRow.classList.add('opt-hide');
-
+  if(f.email){ emailRow.classList.remove('opt-hide'); $('#cardEmail').textContent = f.email; }
+  else emailRow.classList.add('opt-hide');
+  
+  if(f.phone){ phoneRow.classList.remove('opt-hide'); $('#cardPhone').textContent = f.phone; }
+  else phoneRow.classList.add('opt-hide');
+  
   if(f.linkedin){ liRow.classList.remove('opt-hide'); $('#cardLinkedin').textContent = cleanUrl(f.linkedin); }
   else liRow.classList.add('opt-hide');
   
   if(f.website){ wsRow.classList.remove('opt-hide'); $('#cardWebsite').textContent = cleanUrl(f.website); }
   else wsRow.classList.add('opt-hide');
 
+  // Trigger scale recalculation just in case the new content expanded the height
+  requestAnimationFrame(scaleCard);
 }
 
 /* ===========================================================================
@@ -1905,14 +1907,28 @@ async function captureCard(scale){
   const wrap = $('#cardScaler .card-wrap');
   const prevTransform = wrap.style.transform;
   wrap.style.transform = 'none';
-  // force layout
+  
+  // Force layout refresh before measuring the true dynamic height
   void card.offsetWidth;
+  
+  // Grab the exact pixel dimensions of the card right now
+  const trueWidth = card.offsetWidth;
+  const trueHeight = card.offsetHeight;
+
   let canvas;
   try{
     canvas = await html2canvas(card, {
-      width:1080, height:1080, scale:scale||2,
-      backgroundColor:null, useCORS:true, allowTaint:true, logging:false,
-      windowWidth:1080, windowHeight:1080, scrollX:0, scrollY:0
+      width: trueWidth, 
+      height: trueHeight, 
+      scale: scale||2,
+      backgroundColor: null, 
+      useCORS: true, 
+      allowTaint: true, 
+      logging: false,
+      windowWidth: trueWidth, 
+      windowHeight: trueHeight, 
+      scrollX: 0, 
+      scrollY: 0
     });
   } finally {
     wrap.style.transform = prevTransform;
@@ -2014,14 +2030,19 @@ $('#mobilePreviewBtn').addEventListener('click', ()=>{
 function scaleCard(){
   const scaler = $('#cardScaler');
   const wrap   = scaler.querySelector('.card-wrap');
+  const card   = $('#card');
   const avail  = scaler.clientWidth;
   const scale  = avail / 1080;
+  
   wrap.style.transform = 'scale('+scale+')';
   wrap.style.transformOrigin = 'top left';
   wrap.style.width = '1080px';
-  wrap.style.height = '1080px';
+  
+  // Calculate dynamic height footprint based on actual card size
+  const actualHeight = card.offsetHeight;
+  wrap.style.height = actualHeight + 'px';
   // reserve layout space (scaled height)
-  scaler.style.height = (1080*scale)+'px';
+  scaler.style.height = (actualHeight * scale) + 'px';
 }
 window.addEventListener('resize', scaleCard);
 
