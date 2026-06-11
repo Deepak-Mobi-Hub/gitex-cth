@@ -495,16 +495,16 @@ input,textarea,select{ font-family:inherit; font-size:15px; color:var(--text); }
 
 .card-stage{ width:100%; display:flex; justify-content:center; }
 .card-scaler{ width:min(520px,86vw); }
-/* The actual 1080x1080 card is rendered at 1080 then scaled via transform for crisp export */
+/* The actual 1080x1350 card is rendered at 1080 then scaled via transform for crisp export */
 .card-frame{
-  width:1080px; height:1080px; transform-origin:top left; position:relative;
+  width:1080px; height:1350px; transform-origin:top left; position:relative;
 }
 .card-scaler{ position:relative; }
 .card-wrap{ position:relative; overflow:hidden; border-radius:22px; box-shadow:var(--shadow-3); }
 
 /* ---- CARD CORE (shared structure; templates override colors/positions) ---- */
 .card{
-  width:1080px; min-height:1080px; height:auto; position:relative; overflow:hidden;
+  width:1080px; height:1350px; position:relative; overflow:hidden;
   font-family:'Inter',sans-serif; color:#fff;
   display:flex; flex-direction:column;
   --c-bg:#FFFFFF; --c-accent:var(--gitex-red); --c-text:#111827; --c-text-2:#4B5563;
@@ -1139,7 +1139,7 @@ input,textarea,select{ font-family:inherit; font-size:15px; color:var(--text); }
 
       <div class="preview-head">
         <div class="pt">Live <span>preview</span></div>
-        <div class="dims">1080 × 1080 px</div>
+        <div class="dims">1080 × 1350 px (4:5)</div>
       </div>
 
       <!-- Card stage. The .card renders at full 1080px and is scaled to fit. -->
@@ -1900,7 +1900,7 @@ downloadBtn.addEventListener('click', async ()=>{
   }
 });
 
-/* Capture the card at true 1080×1080 by neutralising the preview scale transform
+/* Capture the card at true 1080×1350 (4:5 ratio) by neutralising the preview scale transform
    during render, then restoring it. Prevents distorted exports. */
 async function captureCard(scale){
   const card = $('#card');
@@ -1911,9 +1911,9 @@ async function captureCard(scale){
   // Force layout refresh before measuring the true dynamic height
   void card.offsetWidth;
   
-  // Grab the exact pixel dimensions of the card right now
-  const trueWidth = card.offsetWidth;
-  const trueHeight = card.offsetHeight;
+  // Grab the exact 4:5 pixel dimensions of the card
+  const trueWidth = 1080;
+  const trueHeight = 1350;
 
   let canvas;
   try{
@@ -2038,11 +2038,9 @@ function scaleCard(){
   wrap.style.transformOrigin = 'top left';
   wrap.style.width = '1080px';
   
-  // Calculate dynamic height footprint based on actual card size
-  const actualHeight = card.offsetHeight;
-  wrap.style.height = actualHeight + 'px';
-  // reserve layout space (scaled height)
-  scaler.style.height = (actualHeight * scale) + 'px';
+  // Lock layout space to exactly 4:5 ratio (1350px height)
+  wrap.style.height = '1350px';
+  scaler.style.height = (1350 * scale) + 'px';
 }
 window.addEventListener('resize', scaleCard);
 
