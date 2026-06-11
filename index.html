@@ -450,7 +450,17 @@ input,textarea,select{ font-family:inherit; font-size:15px; color:var(--text); }
 .card .tex{ position:absolute; inset:0; pointer-events:none; z-index:0; opacity:.0; }
 
 /* top bar: logos */
-.card .c-top{ position:relative; z-index:2; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; }
+.card .c-top{
+  position:relative; z-index:2; display:flex; align-items:flex-start; justify-content:space-between; gap:24px;
+  /* Added a dark semi-transparent backdrop behind the logo area to ensure white logos pop on all themes */
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 16px 24px;
+  border-radius: 20px;
+  margin: -16px -24px 0 -24px; /* Pull it slightly outside the padding to frame it nicely */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
 .logo-box{
   /* Base logo-box styling */
   display:flex; align-items:center; justify-content:center; text-align:center;
