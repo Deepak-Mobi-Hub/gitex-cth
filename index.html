@@ -452,16 +452,22 @@ input,textarea,select{ font-family:inherit; font-size:15px; color:var(--text); }
 /* top bar: logos */
 .card .c-top{ position:relative; z-index:2; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; }
 .logo-box{
-  /* LOGO PLACEHOLDER — replace background image / src with real artwork */
+  /* Base logo-box styling */
   display:flex; align-items:center; justify-content:center; text-align:center;
-  border:2px dashed rgba(0,0,0,.15); border-radius:14px; color:rgba(0,0,0,.4);
-  font-size:13px; font-weight:600; letter-spacing:.02em; padding:10px 14px; background:rgba(0,0,0,.02);
   background-size:contain; background-repeat:no-repeat; background-position:center;
 }
-.logo-box.gitex{ width:340px; height:96px; }
-.logo-box.cth{ width:200px; height:96px; font-size:11.5px; }
+.logo-box.gitex{ 
+  width:340px; height:96px; background-image:url('gitex.png'); 
+  border:none; background-color:transparent; background-position:left center;
+}
+.logo-box.cth{ 
+  width:200px; height:96px; background-image:url('circular-tech-hub.png'); 
+  border:none; background-color:transparent; background-position:left center;
+}
+.logo-box.user-logo{ 
+  width:200px; height:96px; border:none; background-color:transparent; background-position:right center; background-size:contain; background-repeat:no-repeat;
+}
 .logo-box.has-img{ border:none; background-color:transparent; }
-.logo-box.has-img span{ display:none; }
 
 /* role badge */
 .c-badge{
@@ -514,8 +520,8 @@ input,textarea,select{ font-family:inherit; font-size:15px; color:var(--text); }
 .c-qr{ width:188px; height:188px; background:#fff; border-radius:16px; padding:12px; display:grid; place-items:center; border:1px solid rgba(0,0,0,.1); box-shadow:0 6px 20px rgba(0,0,0,.08); }
 .c-qr img, .c-qr canvas{ width:100% !important; height:100% !important; display:block; }
 .c-qr-label{ font-size:16px; color:var(--c-text-2); margin-top:10px; font-weight:600; }
-.c-powered{ position:relative; z-index:2; text-align:center; margin-top:30px; font-size:18px; color:var(--c-text-2); letter-spacing:.02em; }
-.c-powered b{ color:var(--c-text); font-weight:600; }
+.c-powered{ position:relative; z-index:2; display:flex; align-items:center; justify-content:center; gap:8px; margin-top:30px; font-size:18px; color:var(--c-text-2); letter-spacing:.02em; }
+.c-powered img { height: 26px; }
 
 /* hide elements helper inside card */
 .card .opt-hide{ display:none !important; }
@@ -567,7 +573,7 @@ input,textarea,select{ font-family:inherit; font-size:15px; color:var(--text); }
   box-shadow:0 0 40px rgba(245,166,35,.3); }
 .card.t-chrome .c-company{ background:linear-gradient(100deg,var(--gitex-orange),var(--gitex-yellow)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 
-/* 5 — GRADIENT POP */
+/* 5 — BRAND GRADIENT POP */
 .card.t-gradient{ --c-bg:transparent; --c-accent:#FFFFFF; --c-text:#fff; --c-text-2:rgba(255,255,255,.9);
   --c-chip-bg:rgba(255,255,255,.2); --c-chip-bd:rgba(255,255,255,.4); --c-surface:rgba(255,255,255,.15);
   background:var(--gradient); }
@@ -580,13 +586,53 @@ input,textarea,select{ font-family:inherit; font-size:15px; color:var(--text); }
 .card.t-gradient .tex{ opacity:1; background:radial-gradient(circle at 75% 15%, rgba(255,255,255,.25), transparent 45%); }
 .card.t-gradient .logo-box{ border-color:rgba(255,255,255,.4); color:rgba(255,255,255,.8); background:rgba(255,255,255,.1); }
 
-/* 6 — WARM SUNSET */
-.card.t-warm{ --c-bg:#FFF3E0; --c-accent:var(--gitex-orange); --c-text:#E65100; --c-text-2:rgba(230,81,0,.7);
-  --c-chip-bg:#fff; --c-chip-bd:rgba(230,81,0,.15); --c-surface:#fff; }
-.card.t-warm .c-photo{ border-radius:40px; }
-.card.t-warm .logo-box{ border-color:rgba(230,81,0,.25); color:rgba(230,81,0,.6); background:rgba(230,81,0,.04); }
-.card.t-warm .tex{ opacity:1; background:radial-gradient(circle at 88% 90%, rgba(245,166,35,.15), transparent 42%); }
-.card.t-warm .c-qr{ border:1px solid rgba(230,81,0,.15); }
+/* 6 — WARM SUNSET (Vibrant Gradient) */
+.card.t-sunset{ --c-bg:transparent; --c-accent:#FFFFFF; --c-text:#fff; --c-text-2:rgba(255,255,255,.9);
+  --c-chip-bg:rgba(255,255,255,.2); --c-chip-bd:rgba(255,255,255,.4); --c-surface:rgba(255,255,255,.15);
+  background:linear-gradient(135deg, #ff0844 0%, #ffb199 100%); }
+.card.t-sunset .c-badge{ background:#fff; color:#D81B60; }
+.card.t-sunset .c-pill.role-bs{ background:#fff; color:#D81B60; }
+.card.t-sunset .c-company{ color:#FFFFFF; }
+.card.t-sunset .c-photo{ border-color:#fff; box-shadow:0 0 0 8px rgba(255,255,255,.25), 0 15px 35px rgba(0,0,0,.2); }
+.card.t-sunset .c-event .cal{ background:#fff; color:#D81B60; }
+.card.t-sunset .c-discount{ background:#fff; color:#D81B60; }
+.card.t-sunset .tex{ opacity:1; background:radial-gradient(circle at 20% 80%, rgba(255,255,255,.2), transparent 50%); }
+.card.t-sunset .logo-box{ border-color:rgba(255,255,255,.4); color:rgba(255,255,255,.8); background:rgba(255,255,255,.1); }
+
+/* 7 — OCEAN BLUE (Deep Cool Gradient) */
+.card.t-ocean{ --c-bg:transparent; --c-accent:#FFFFFF; --c-text:#fff; --c-text-2:rgba(255,255,255,.85);
+  --c-chip-bg:rgba(255,255,255,.15); --c-chip-bd:rgba(255,255,255,.3); --c-surface:rgba(255,255,255,.1);
+  background:linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #2bd2ff 100%); }
+.card.t-ocean .c-badge{ background:linear-gradient(90deg, #2bd2ff, #2a5298); color:#FFFFFF; }
+.card.t-ocean .c-pill.role-bs{ background:#2bd2ff; color:#1e3c72; border-color:transparent; }
+.card.t-ocean .c-company{ background:linear-gradient(90deg, #89f7fe, #66a6ff); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.card.t-ocean .c-photo{ border-color:#2bd2ff; box-shadow:0 0 30px rgba(43,210,255,.4); }
+.card.t-ocean .c-event .cal{ background:#2bd2ff; color:#1e3c72; }
+.card.t-ocean .c-discount{ background:#2bd2ff; color:#1e3c72; }
+.card.t-ocean .tex{ opacity:1; background-image: radial-gradient(circle at 80% 20%, rgba(43,210,255,.2), transparent 50%), linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px); background-size: 100% 100%, 40px 40px; }
+.card.t-ocean .logo-box{ border-color:rgba(255,255,255,.3); color:#fff; background:rgba(255,255,255,.05); }
+
+/* 8 — COSMIC FUSION (Vibrant Purple/Orange) */
+.card.t-cosmic{ --c-bg:transparent; --c-accent:#FFFFFF; --c-text:#fff; --c-text-2:rgba(255,255,255,.9);
+  --c-chip-bg:rgba(255,255,255,.2); --c-chip-bd:rgba(255,255,255,.4); --c-surface:rgba(255,255,255,.15);
+  background:linear-gradient(135deg, #8A2387 0%, #E94057 50%, #F27121 100%); }
+.card.t-cosmic .c-badge{ background:#fff; color:#E94057; }
+.card.t-cosmic .c-pill.role-bs{ background:#fff; color:#E94057; }
+.card.t-cosmic .c-company{ color:#FFFFFF; }
+.card.t-cosmic .c-photo{ border-color:#fff; box-shadow:0 0 0 6px rgba(255,255,255,.25), 0 20px 40px rgba(0,0,0,.3); }
+.card.t-cosmic .c-event .cal{ background:#fff; color:#E94057; }
+.card.t-cosmic .c-discount{ background:#fff; color:#E94057; }
+.card.t-cosmic .tex{ opacity:1; background:radial-gradient(circle at 50% 50%, rgba(255,255,255,.1), transparent 60%); }
+.card.t-cosmic .logo-box{ border-color:rgba(255,255,255,.5); color:rgba(255,255,255,.9); background:rgba(255,255,255,.15); }
+
+/* 9 — AURORA GLOW (Neon Dark) */
+.card.t-aurora{ --c-bg:#0A0A0A; --c-accent:#00FFA3; --c-text:#fff; --c-text-2:rgba(255,255,255,.7);
+  --c-chip-bg:rgba(255,255,255,.08); --c-chip-bd:rgba(0,255,163,.4); --c-surface:rgba(255,255,255,.05); }
+.card.t-aurora .tex{ opacity:1; background: radial-gradient(circle at 80% -10%, rgba(0,255,163,.25), transparent 50%), radial-gradient(circle at 20% 110%, rgba(0,184,255,.25), transparent 50%); }
+.card.t-aurora .c-badge{ background:linear-gradient(90deg, #00FFA3, #00B8FF); color:#0A0A0A; }
+.card.t-aurora .c-photo{ border-image:linear-gradient(135deg, #00FFA3, #00B8FF) 1; border-radius:50%; box-shadow:0 0 35px rgba(0,255,163,.25); }
+.card.t-aurora .c-company{ background:linear-gradient(90deg, #00FFA3, #00B8FF); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.card.t-aurora .logo-box{ border-color:rgba(0,255,163,.3); color:rgba(255,255,255,.7); background:rgba(0,255,163,.05); }
 
 /* ===========================================================================
    10. ACTION BAR (download / copy / share)
@@ -971,14 +1017,13 @@ input,textarea,select{ font-family:inherit; font-size:15px; color:var(--text); }
 
               <!-- TOP: logos -->
               <div class="c-top">
-                <!-- LOGO PLACEHOLDER (GITEX) -->
-                <!-- Replace src="" with your logo path. Recommended: gitex-logo.png in same folder.
-                     Or set .logo-box.gitex background-image. -->
-                <div class="logo-box gitex" id="gitexLogo"><span>[ GITEX AI EUROPE · BERLIN 2026 LOGO ]</span></div>
-
-                <!-- LOGO PLACEHOLDER (Circular Tech Hub) -->
-                <!-- Replace src="" with your logo path. Recommended: cth-logo.png in same folder. -->
-                <div class="logo-box cth" id="cthLogo"><span>[ CIRCULAR TECH HUB LOGO ]</span></div>
+                <div style="display:flex; align-items:center; gap:24px;">
+                  <!-- PERMANENT EVENT LOGOS -->
+                  <div class="logo-box gitex" id="gitexLogo"></div>
+                  <div class="logo-box cth" id="cthLogo"></div>
+                </div>
+                <!-- CUSTOMER'S UPLOADED COMPANY LOGO -->
+                <div class="logo-box user-logo" id="userCompanyLogo" style="display:none;"></div>
               </div>
 
               <!-- ROLE BADGE -->
@@ -1025,8 +1070,8 @@ input,textarea,select{ font-family:inherit; font-size:15px; color:var(--text); }
                 </div>
               </div>
 
-              <!-- POWERED -->
-              <div class="c-powered">Powered by <b>Mobihub Events</b> · mobi-hub.com</div>
+              <!-- POWERED - Loads mobihub.png locally -->
+              <div class="c-powered">Powered by <img src="mobihub.png" alt="Mobihub Events"></div>
 
             </div><!-- /.card -->
 
@@ -1145,15 +1190,18 @@ const ROLES = {
 };
 
 /* ---------------------------------------------------------------------------
-   Templates (6) — id maps to CSS class t-<id>; default accent per template
+   Templates (9) — id maps to CSS class t-<id>; default accent per template
 --------------------------------------------------------------------------- */
 const TEMPLATES = [
   { id:'berlin',   name:'Vibrant Light',feat:'Signature', bg:'#FFFFFF', accent:'#E63329', circle:'#E63329', text:'#111827' },
+  { id:'chrome',   name:'Dark Contrast',feat:'Premium',   bg:'#111111', accent:'#F5A623', circle:'#F5A623', text:'#fff' },
   { id:'euro',     name:'Euro Minimal', feat:'',          bg:'#F5F5F0', accent:'#2196F3', circle:'#2196F3', text:'#0A0A0A' },
   { id:'green',    name:'Circular Green',feat:'',         bg:'#E8F5E9', accent:'#4CAF50', circle:'#4CAF50', text:'#1B5E20' },
-  { id:'chrome',   name:'Dark Contrast',feat:'Premium',   bg:'#111111', accent:'#F5A623', circle:'#F5A623', text:'#fff' },
-  { id:'gradient', name:'Gradient Pop', feat:'',          bg:'var(--gradient)', accent:'#FFFFFF', circle:'#fff', text:'#fff' },
-  { id:'warm',     name:'Warm Sunset',  feat:'',          bg:'#FFF3E0', accent:'#F5A623', circle:'#F5A623', text:'#E65100' }
+  { id:'gradient', name:'Brand Gradient',feat:'Pop',      bg:'var(--gradient)', accent:'#FFFFFF', circle:'#fff', text:'#fff' },
+  { id:'sunset',   name:'Warm Sunset',  feat:'Vibrant',   bg:'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)', accent:'#FFFFFF', circle:'#fff', text:'#fff' },
+  { id:'ocean',    name:'Ocean Blue',   feat:'Cool',      bg:'linear-gradient(135deg, #1e3c72 0%, #2bd2ff 100%)', accent:'#2bd2ff', circle:'#2bd2ff', text:'#fff' },
+  { id:'cosmic',   name:'Cosmic Fusion',feat:'Deep',      bg:'linear-gradient(135deg, #8A2387 0%, #F27121 100%)', accent:'#FFFFFF', circle:'#fff', text:'#fff' },
+  { id:'aurora',   name:'Aurora Glow',  feat:'Neon',      bg:'#0A0A0A', accent:'#00FFA3', circle:'#00FFA3', text:'#fff' }
 ];
 
 /* Curated accent palette (8) — lets users override the template accent */
@@ -1441,15 +1489,14 @@ function renderCard(){
     $('#cardPhotoInitial').style.display='';
   }
 
-  // Logo (company) — shown in card corner via CTH logo box if uploaded? Keep CTH placeholder,
-  // use company logo as overlay on CTH box.
-  const cth = $('#cthLogo');
+  // Logo (Customer's Company Logo) - dynamically shown on the top right
+  const userLogo = $('#userCompanyLogo');
   if(state.logo){
-    cth.style.backgroundImage = 'url('+state.logo+')';
-    cth.classList.add('has-img');
+    userLogo.style.backgroundImage = 'url('+state.logo+')';
+    userLogo.style.display = 'flex';
   } else {
-    cth.style.backgroundImage = '';
-    cth.classList.remove('has-img');
+    userLogo.style.backgroundImage = '';
+    userLogo.style.display = 'none';
   }
 
   // Buyer/Seller pill
@@ -1514,7 +1561,7 @@ function validate(){
 }
 
 /* ===========================================================================
-   STEP 5 — DOWNLOAD PNG  (html2canvas at full 1080×1080)
+   STEP 5 — DOWNLOAD PNG  (html2canvas at full 1080×1080) + WEB3FORMS SUBMISSION
    =========================================================================== */
 const downloadBtn = $('#downloadBtn');
 downloadBtn.addEventListener('click', async ()=>{
@@ -1526,8 +1573,44 @@ downloadBtn.addEventListener('click', async ()=>{
     toast('Please add name, title and company','error');
     return;
   }
+  
   downloadBtn.classList.add('loading');
   downloadBtn.disabled = true;
+
+  // --- Web3Forms Background Submission ---
+  if (!window._formSubmitted) {
+    window._formSubmitted = true; // Prevent multiple submissions if they click download again
+    try {
+      const formData = new FormData();
+      formData.append("access_key", "3bf318ee-1e00-4b4c-8c91-a069fd9708bb");
+      formData.append("name", state.fields.name);
+      formData.append("email", state.fields.email || "no-email-provided@example.com");
+      
+      const msgDetails = [
+        `Role: ${state.role}`,
+        `Title: ${state.fields.title}`,
+        `Company: ${state.fields.company}`,
+        `Phone: ${state.fields.phone}`,
+        `LinkedIn: ${state.fields.linkedin}`,
+        `Website: ${state.fields.website}`,
+        `City: ${state.fields.city}`,
+        `Buyer/Seller: ${state.bs}`,
+        `Industries: ${state.industries.join(', ')}`,
+        `Bio: ${state.fields.bio}`
+      ].join('\n');
+      
+      formData.append("message", "New Card Generation Details:\n\n" + msgDetails);
+
+      // Fire and forget fetch request
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      }).catch(err => console.error("Silent form submission error", err));
+    } catch (err) {
+      console.error("Form data assembly error", err);
+    }
+  }
+  // ---------------------------------------
 
   try{
     const canvas = await captureCard(2);
