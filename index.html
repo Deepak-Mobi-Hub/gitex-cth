@@ -1198,20 +1198,22 @@ input,textarea,select{ font-family:inherit; font-size:15px; color:var(--text); }
                   <div class="c-foot-left">
                     <div class="c-event"><span class="cal">📅</span> JOIN US — 30 June – 1 July · Messe Berlin Hall 2.2</div>
                     <div class="c-links" id="cardLinks">
+                    <span class="lnk opt-hide" id="cardEmailRow"><b>@</b> <span id="cardEmail"></span></span>
+                    <span class="lnk opt-hide" id="cardPhoneRow"><b>✆</b> <span id="cardPhone"></span></span>
                     <span class="lnk opt-hide" id="cardLinkedinRow"><b>in</b> <span id="cardLinkedin"></span></span>
                     <span class="lnk opt-hide" id="cardWebsiteRow"><b>↗</b> <span id="cardWebsite"></span></span>
                   </div>
                 </div>
 
                 <div class="c-qr-wrap">
-                    <div class="c-qr" id="cardQr"></div>
-                    <div class="c-qr-label">Scan to connect</div>
-                  </div>
+                  <div class="c-qr" id="cardQr"></div>
+                  <div class="c-qr-label">Scan to connect</div>
                 </div>
               </div>
+            </div>
 
-              <!-- POWERED - Loads mobihub.png locally -->
-              <div class="c-powered">Powered by <img src="mobihub.png" alt="Mobihub Events"></div>
+            <!-- POWERED - Loads mobihub.png locally -->
+            <div class="c-powered">Powered by <img src="mobihub.png" alt="Mobihub Events"></div>
 
             </div><!-- /.card -->
 
@@ -1775,10 +1777,20 @@ function renderCard(){
 
   // Links
   const liRow = $('#cardLinkedinRow'), wsRow = $('#cardWebsiteRow');
+  const emRow = $('#cardEmailRow'), phRow = $('#cardPhoneRow');
+
+  if(f.email){ emRow.classList.remove('opt-hide'); $('#cardEmail').textContent = f.email; }
+  else emRow.classList.add('opt-hide');
+  
+  if(f.phone){ phRow.classList.remove('opt-hide'); $('#cardPhone').textContent = f.phone; }
+  else phRow.classList.add('opt-hide');
+
   if(f.linkedin){ liRow.classList.remove('opt-hide'); $('#cardLinkedin').textContent = cleanUrl(f.linkedin); }
   else liRow.classList.add('opt-hide');
+  
   if(f.website){ wsRow.classList.remove('opt-hide'); $('#cardWebsite').textContent = cleanUrl(f.website); }
   else wsRow.classList.add('opt-hide');
+
 }
 
 /* ===========================================================================
